@@ -1,6 +1,6 @@
 ---
 name: github-delivery
-description: Use for Git/GitHub delivery: branch preparation, intentional commits, pull requests, review feedback, CI failures, and safe merge readiness.
+description: "Use for Git/GitHub delivery: branch preparation, intentional commits, pull requests, review feedback, CI failures, and safe merge readiness."
 ---
 # GitHub Delivery
 ## Workflow
