@@ -1,24 +1,58 @@
 name: Validate Agent Skills
+
 on:
   push:
     branches: [main]
   pull_request:
   workflow_dispatch:
+
 permissions:
   contents: read
+  statuses: write
+
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
       - name: Validate skills, resources and evals
-        run: npm run validate
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          output="$(npm run validate 2>&1)"
+          code=$?
+          printf '%s\n' "$output"
+
+          if [ "$code" -eq 0 ]; then
+            gh api "repos/${{ github.repository }}/statuses/${GITHUB_SHA}" \
+              -f state=success \
+              -f context=validation-diagnostics \
+              -f description='Repository validation passed' >/dev/null
+            exit 0
+          fi
+
+          description="$(printf '%s\n' "$output" | grep -E '^(ERROR|- |[A-Za-z0-9_.\/-]+:)' | head -n 1 | cut -c1-120)"
+          if [ -z "$description" ]; then
+            description='npm run validate failed; inspect workflow logs'
+          fi
+
+          gh api "repos/${{ github.repository }}/statuses/${GITHUB_SHA}" \
+            -f state=failure \
+            -f context=validation-diagnostics \
+            -f description="$description" >/dev/null
+          exit "$code"
+
       - name: Validate canonical skills with skills-ref
         shell: bash
         run: |
@@ -27,12 +61,16 @@ jobs:
           while IFS= read -r skill; do
             agentskills validate "$(dirname "$skill")"
           done < <(find skills -name SKILL.md -type f | sort)
+
       - name: Generate catalog
         run: npm run catalog
+
       - name: Ensure generated catalog is committed
         run: git diff --exit-code -- catalog/skills.json
+
       - name: Verify skills CLI discovery
         run: npx --yes skills@latest add . --list
+
       - name: Verify installation for Codex, Claude Code and OpenCode
         shell: bash
         run: |
