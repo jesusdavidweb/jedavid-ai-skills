@@ -14,19 +14,30 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - name: Validate skills, resources and evals
         run: npm run validate
+      - name: Validate canonical skills with skills-ref
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check skills-ref==0.1.1
+          while IFS= read -r skill; do
+            skills-ref validate "$(dirname "$skill")"
+          done < <(find skills -name SKILL.md -type f | sort)
       - name: Generate catalog
         run: npm run catalog
       - name: Ensure generated catalog is committed
         run: git diff --exit-code -- catalog/skills.json
       - name: Verify skills CLI discovery
-        run: npx --yes skills add . --list
+        run: npx --yes skills@latest add . --list
       - name: Verify installation for Codex, Claude Code and OpenCode
         shell: bash
         run: |
           set -euo pipefail
           tmp="$(mktemp -d)"
           cd "$tmp"
-          npx --yes skills add "$GITHUB_WORKSPACE" --skill repo-audit -a codex -a claude-code -a opencode --copy -y
+          npx --yes skills@latest add "$GITHUB_WORKSPACE" --skill repo-audit -a codex -a claude-code -a opencode --copy -y
           find . -type f -name SKILL.md -print
