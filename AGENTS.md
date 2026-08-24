@@ -1,6 +1,6 @@
 # Agent Instructions
 
-This repository is a reusable skills library. Keep all repository content in English.
+This repository is a reusable Agent Skills library. Keep all repository content in English.
 
 ## Operating model
 
@@ -25,6 +25,12 @@ This repository is a reusable skills library. Keep all repository content in Eng
 
 ## Skill design
 
-Every skill should contain YAML frontmatter with `name` and `description`, then concise sections for triggers, workflow, guardrails, verification and expected output. Skills should remain agent-agnostic and should not depend on a proprietary tool unless explicitly described as optional.
+Every canonical skill lives at `skills/<domain>/<skill-id>/SKILL.md` and must contain YAML frontmatter with `name` and `description`. The `name` must be lowercase kebab-case and match the containing directory. Keep frontmatter minimal; repository-level licensing is MIT, while optional `license`, `compatibility`, or `metadata` fields should only be added when they carry skill-specific information.
+
+For large skills, use `references/`, `scripts/`, or `assets/` beside `SKILL.md` so agents can load detail progressively.
+
+Run `npm run validate` and `npm run catalog` after adding, renaming, or moving a skill. `catalog/skills.json` must stay generated and committed.
+
+Do not create duplicate canonical skill bodies under `.claude`, `.agents`, `.opencode`, or other client-specific paths. Installation tooling should link or copy from `skills/`.
 
 Executable reusable code belongs in `jedavid-web-tools`; this repository should primarily encode procedures and decision logic.
