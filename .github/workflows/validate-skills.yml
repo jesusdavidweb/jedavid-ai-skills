@@ -9,7 +9,6 @@ on:
 permissions:
   contents: read
   statuses: write
-  issues: write
 
 jobs:
   validate:
@@ -59,16 +58,27 @@ jobs:
           npx --yes skills@latest add "$GITHUB_WORKSPACE" --skill repo-audit -a codex -a claude-code -a opencode --copy -y
           find . -type f -name SKILL.md -print
 
-      - name: Report failed step
-        if: failure()
+      - name: Report job outcome
+        if: always()
         env:
           GH_TOKEN: ${{ github.token }}
+        shell: bash
         run: |
-          gh issue create --repo "${{ github.repository }}" \
-            --title "CI full diagnostic ${GITHUB_SHA:0:7}" \
-            --body "repo_validate=${{ steps.repo_validate.outcome }}
-skills_ref=${{ steps.skills_ref.outcome }}
-catalog=${{ steps.catalog.outcome }}
-catalog_diff=${{ steps.catalog_diff.outcome }}
-discovery=${{ steps.discovery.outcome }}
-install=${{ steps.install.outcome }}" >/dev/null || true
+          set -euo pipefail
+          declare -A outcomes=(
+            [repo_validate]="${{ steps.repo_validate.outcome }}"
+            [skills_ref]="${{ steps.skills_ref.outcome }}"
+            [catalog]="${{ steps.catalog.outcome }}"
+            [catalog_diff]="${{ steps.catalog_diff.outcome }}"
+            [discovery]="${{ steps.discovery.outcome }}"
+            [install]="${{ steps.install.outcome }}"
+          )
+          for step in repo_validate skills_ref catalog catalog_diff discovery install; do
+            outcome="${outcomes[$step]}"
+            state=success
+            [ "$outcome" = success ] || state=failure
+            gh api "repos/${{ github.repository }}/statuses/${GITHUB_SHA}" \
+              -f state="$state" \
+              -f context="validate/$step" \
+              -f description="$outcome" >/dev/null
+          done
