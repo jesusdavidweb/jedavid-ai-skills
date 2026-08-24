@@ -1,6 +1,7 @@
 {
   "name": "jedavid-ai-skills",
   "private": true,
+  "type": "module",
   "version": "1.2.0",
   "description": "Portable Agent Skills for AI-assisted engineering",
   "scripts": {
