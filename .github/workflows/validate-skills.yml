@@ -1,36 +1,27 @@
 name: Validate Agent Skills
-
 on:
   push:
     branches: [main]
   pull_request:
   workflow_dispatch:
-
 permissions:
   contents: read
-
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-
-      - name: Validate SKILL.md metadata
+      - name: Validate skills, resources and evals
         run: npm run validate
-
       - name: Generate catalog
         run: npm run catalog
-
       - name: Ensure generated catalog is committed
         run: git diff --exit-code -- catalog/skills.json
-
       - name: Verify skills CLI discovery
         run: npx --yes skills add . --list
-
       - name: Verify installation for Codex, Claude Code and OpenCode
         shell: bash
         run: |

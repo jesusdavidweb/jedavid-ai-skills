@@ -1,17 +1,22 @@
 ---
 name: cloudflare-platform
-description: Use for architecture, deployment, debugging, or optimization on Cloudflare Workers, Pages, D1, R2, KV, Queues, Durable Objects, Workers AI, DNS, caching, and related services.
+description: Use for architecture, deployment, debugging or optimization on Cloudflare Workers and developer-platform primitives including D1, KV, R2, Queues, Durable Objects, Workflows, Hyperdrive and bindings. Prefer cloudflare-access-dns-security for DNS/Zero Trust policy issues.
 ---
 # Cloudflare Platform
 ## Workflow
-1. Confirm account/project, runtime, compatibility date, bindings, routes/domains and deployment method.
-2. Choose primitives by semantics: D1 relational data; R2 objects; KV read-heavy eventually consistent config/cache; Queues async delivery; Durable Objects strongly coordinated state.
-3. Keep secrets in platform secret storage, never repository config.
-4. Design for Workers runtime constraints and avoid Node assumptions unless compatibility support is verified.
-5. Validate migrations/bindings in non-production before deploy.
-6. Inspect deployment/runtime logs and actual HTTP behavior after release.
-7. For full Cloudflare architectures, minimize unnecessary external infrastructure while keeping portability where valuable.
-## Supporting reference
-Use `references/platform-selection.md` when choosing between Cloudflare storage, coordination and asynchronous primitives.
+1. Confirm project/runtime, compatibility date, bindings, routes, deployment method and environment.
+2. Choose primitives by consistency, access pattern, object size, coordination and delivery semantics rather than familiarity.
+3. Keep secrets in platform secret storage and minimize public bindings/routes.
+4. Validate migrations/bindings before production deployment.
+5. Treat Worker versions and storage state separately: Worker version rollback does not roll back D1/KV/R2/Durable Object state.
+6. Inspect deployment and runtime logs plus actual HTTP behavior after release.
+## Conditional references
+- Storage/coordination choice → `references/platform-selection.md`.
+- Bindings/configuration → `references/bindings.md`.
+- Deployment/rollback reasoning → `references/deployments.md`.
+## Available scripts
+- `scripts/inspect-project.sh` — read-only local project/Wrangler inventory.
+## Asset
+Use `assets/architecture-checklist.md` for architecture reviews.
 ## Guardrails
-Use current official Cloudflare docs for capabilities/limits that may change.
+Cloudflare capabilities and limits change quickly. Re-check current official docs for limits, pricing and beta/GA status before architecture decisions.

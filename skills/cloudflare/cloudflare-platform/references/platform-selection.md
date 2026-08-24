@@ -1,13 +1,18 @@
-# Cloudflare Platform Selection Reference
+# Cloudflare Platform Selection
 
-Use platform primitives according to their consistency and lifecycle requirements rather than convenience alone.
+Choose by semantics:
 
-- **Workers**: request/compute runtime and API boundaries.
-- **Pages**: static/frontend delivery where the Pages workflow remains appropriate.
-- **D1**: relational data with SQL semantics.
-- **R2**: object/blob storage.
-- **KV**: read-heavy distributed configuration/cache where eventual consistency is acceptable.
-- **Queues**: asynchronous delivery and retry boundaries.
-- **Durable Objects**: coordinated state, serialization and strongly consistent per-object workflows.
+- **D1**: relational SQL data and ad-hoc querying; current docs describe it as a read-heavy web-app fit.
+- **KV**: globally distributed, read-heavy configuration/cache where eventual-consistency characteristics are acceptable.
+- **R2**: unstructured object/blob storage, S3-compatible API and strong per-object consistency.
+- **Durable Objects**: globally unique coordinated state, transactional storage, WebSocket/stateful workloads and serialization of writes.
+- **Queues**: asynchronous buffering with at-least-once delivery; consumers must be idempotent.
+- **Hyperdrive**: connection pooling/acceleration for existing Postgres/MySQL.
+- **Workflows**: durable multi-step/long-running processes rather than simple message buffering.
 
-Before adopting a platform feature, verify current limits, pricing, regional behavior, compatibility dates and documented production constraints in official Cloudflare documentation.
+Do not pick KV for coordination or R2 as a relational database merely because they are simple to provision.
+
+## Sources
+- https://developers.cloudflare.com/workers/platform/storage-options/
+- https://developers.cloudflare.com/workers/
+- https://developers.cloudflare.com/r2/how-r2-works/

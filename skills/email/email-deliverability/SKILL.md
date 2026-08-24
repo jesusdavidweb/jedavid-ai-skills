@@ -1,19 +1,23 @@
 ---
 name: email-deliverability
-description: Use when email is rejected, spam-foldered, delayed, missing, or inconsistently accepted, including SPF/DKIM/DMARC, rDNS, HELO, reputation, content, queues and provider-specific SMTP policy failures.
+description: Use when outbound email is rejected, throttled, delayed, spam-foldered or inconsistently accepted and diagnosis must cover sender identity, SPF/DKIM/DMARC, PTR/HELO, TLS, routing, reputation, volume and provider-specific policy. Prefer postfix-billionmail for a local MTA service failure.
 ---
-# Email Deliverability Audit
+# Email Deliverability
 ## Workflow
-1. Capture the complete SMTP rejection/DSN and message authentication headers from a delivered sample when available.
-2. Identify the actual outbound MTA/IP; do not assume host Postfix is active when a container or relay owns SMTP ports.
-3. Validate PTR/rDNS, forward DNS, HELO/EHLO, TLS and envelope/header domains.
-4. Evaluate SPF against the real egress path; remove obsolete senders only after proving they are unused.
-5. Validate every DKIM signature and published selector; multiple signatures are acceptable only when intentionally valid.
-6. Validate DMARC alignment/policy/reporting.
-7. Inspect IP/domain reputation and sending patterns without treating reputation tools as definitive.
-8. Classify rejection: authentication, reputation, recipient, content, rate, policy, routing or temporary failure.
-9. Change one causal factor at a time and retest.
-## Supporting reference
-Use `references/diagnostic-checklist.md` when a full identity, routing, transport and policy review is required.
-## Output
-Evidence, likely root cause, DNS/MTA changes, verification and remaining provider-specific risk.
+1. Capture complete SMTP rejection/DSN and authentication headers from a delivered sample when available.
+2. Identify the actual egress MTA and public IP from sockets, containers/relay configuration and headers.
+3. Verify forward/reverse DNS, HELO/EHLO, TLS, envelope/header domains and alignment.
+4. Validate SPF, every DKIM signature/selector, and DMARC policy/alignment.
+5. Classify failures as identity/authentication, routing, reputation, rate, content, recipient or provider policy.
+6. Compare behavior with current provider requirements before changing infrastructure.
+7. Change one causal variable at a time and retest.
+## Conditional references
+- Authentication and identity → `references/authentication.md`.
+- Gmail/Google requirements → `references/gmail.md`.
+- Outlook/Microsoft requirements → `references/microsoft.md`.
+- SMTP classification and reputation → `references/smtp-reputation.md`.
+## Available scripts
+- `scripts/dns-audit.sh` — read-only DNS/PTR/authentication record collector.
+- `scripts/smtp-tls-check.sh` — read-only STARTTLS handshake probe.
+## Asset
+Use `assets/deliverability-report.md` for final findings.
