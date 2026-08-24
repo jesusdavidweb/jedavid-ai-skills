@@ -11,5 +11,7 @@ description: Use for architecture, deployment, debugging, or optimization on Clo
 5. Validate migrations/bindings in non-production before deploy.
 6. Inspect deployment/runtime logs and actual HTTP behavior after release.
 7. For full Cloudflare architectures, minimize unnecessary external infrastructure while keeping portability where valuable.
+## Supporting reference
+Use `references/platform-selection.md` when choosing between Cloudflare storage, coordination and asynchronous primitives.
 ## Guardrails
 Use current official Cloudflare docs for capabilities/limits that may change.

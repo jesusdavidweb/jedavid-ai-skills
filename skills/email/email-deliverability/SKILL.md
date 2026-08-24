@@ -13,5 +13,7 @@ description: Use when email is rejected, spam-foldered, delayed, missing, or inc
 7. Inspect IP/domain reputation and sending patterns without treating reputation tools as definitive.
 8. Classify rejection: authentication, reputation, recipient, content, rate, policy, routing or temporary failure.
 9. Change one causal factor at a time and retest.
+## Supporting reference
+Use `references/diagnostic-checklist.md` when a full identity, routing, transport and policy review is required.
 ## Output
 Evidence, likely root cause, DNS/MTA changes, verification and remaining provider-specific risk.

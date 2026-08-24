@@ -14,3 +14,5 @@ description: Use for full WordPress/WooCommerce audits covering application, dat
 8. Rank findings; propose checkpoints before cleanup or config changes.
 ## Guardrails
 Audit first. Never delete tables/files/options solely because they look unused; prove ownership and take backups.
+## Supporting reference
+When the audit is broad, use `references/checklist.md` as a deeper evidence checklist. Load only the sections relevant to the current scope.

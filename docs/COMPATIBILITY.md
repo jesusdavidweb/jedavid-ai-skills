@@ -1,29 +1,53 @@
 # Agent Compatibility
 
-This repository intentionally keeps each skill in a portable `skills/<domain>/<skill>/SKILL.md` form with YAML `name` and `description` metadata.
+This repository uses directory-based Agent Skills:
+
+```text
+skills/<domain>/<skill-id>/SKILL.md
+```
+
+Each canonical `SKILL.md` uses portable YAML frontmatter with a lowercase kebab-case `name` and a specific `description`. Repository-level licensing is MIT; optional per-skill `license`, `compatibility`, and `metadata` fields may be used when a skill genuinely needs them.
 
 ## Canonical source
 
-`skills/` is the source of truth. Client-specific adapters should reference or generate from this directory rather than maintaining divergent copies.
+`skills/` is the source of truth. Do not maintain duplicate skill bodies under `.claude`, `.agents`, `.opencode`, or client-specific directories inside this repository. Installation tooling should place or link the canonical skill into the correct client directory.
 
-## Target environments
+## Supported targets
 
-The skills are designed to be usable with Codex, Claude Code, OpenCode, MiniMax and other coding agents that can load Markdown instructions or skill directories. Exact discovery/installation behavior is client-specific and may evolve.
+| Environment | Status | Preferred installation |
+| --- | --- | --- |
+| OpenAI Codex | Supported by the open `skills` CLI | `npx skills add ... -a codex` |
+| Claude Code | Supported by the open `skills` CLI | `npx skills add ... -a claude-code` |
+| OpenCode | Native Agent Skills support and `skills` CLI target | `npx skills add ... -a opencode` |
+| MiniMax Code | Agent Skills ecosystem supported; exact client path may evolve | generic `npx skills add ... -g` until a stable MiniMax-specific target is published |
+| Other compatible agents | Usually portable | use the agent target exposed by `npx skills` |
 
-## MCP integration
+## OpenCode discovery
 
-Skills may recommend capabilities from `jedavid-web-tools`, but they must remain understandable and useful when those tools are not installed. MCP manifests, server code and executable collectors belong in the tools repository.
+OpenCode natively discovers skills from project/global `.opencode/skills`, `.claude/skills`, and `.agents/skills` sources, and can also load explicit local/HTTP skill sources. Directory-based skills are preferred because supporting `scripts/`, `references/`, and `assets/` can remain adjacent to `SKILL.md`.
 
-## Compatibility rules
+## Portability rules
 
-- Keep frontmatter minimal and portable: `name` and `description`.
-- Use relative repository paths, not machine-specific absolute paths.
-- Avoid assuming a proprietary tool name when a generic capability description works.
+- `name` must be 1-64 characters, lowercase kebab-case, and match the skill directory.
+- `description` must be present and remain below 1024 characters.
+- Keep frontmatter small and cross-agent by default.
+- Use relative paths inside a skill.
+- Supporting resources belong inside the skill directory.
+- Do not assume proprietary tool names when a generic capability description is enough.
 - Mark optional tool integrations explicitly.
-- Do not embed credentials or account identifiers.
-- Prefer deterministic shell/API verification that another agent can reproduce.
-- Client adapters must not change the semantic content of the canonical skill.
+- Never embed credentials or account identifiers.
+- Client adapters must not change canonical semantics.
 
-## Validation
+## Automated validation
 
-For every supported client, validate at minimum: repository import, skill discovery, loading one skill, invoking an optional MCP dependency, and graceful behavior when the MCP dependency is absent.
+CI validates metadata and then asks the open `skills` CLI to discover the repository. It also performs a smoke installation of `repo-audit` for Codex, Claude Code, and OpenCode using `--copy`, avoiding symlink-specific false negatives.
+
+Local checks:
+
+```bash
+npm run validate
+npm run catalog
+npx skills add . --list
+```
+
+See `docs/INSTALLATION.md` for install commands.

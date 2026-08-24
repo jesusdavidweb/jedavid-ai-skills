@@ -1,0 +1,14 @@
+{
+  "name": "jedavid-ai-skills",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Portable Agent Skills for AI-assisted engineering",
+  "scripts": {
+    "validate": "node --experimental-strip-types scripts/validate-skills.ts",
+    "catalog": "node --experimental-strip-types scripts/generate-catalog.ts",
+    "skills:list": "npx --yes skills add . --list"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
