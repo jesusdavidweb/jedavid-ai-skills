@@ -1,15 +1,20 @@
 ---
 name: seo-llm-discoverability
-description: Use when improving technical SEO, content discoverability, structured data, entity clarity, and machine-readable/citation-friendly content for search engines and AI systems.
+description: Use when auditing or improving technical SEO, crawl/index controls, canonicalization, sitemaps, structured data, internal linking, entity clarity and machine-readable content intended to be discoverable and citable by search engines or AI systems.
 ---
 # SEO and LLM Discoverability
+
 ## Workflow
-1. Verify indexability, canonicals, robots, sitemap, redirects and HTTP status behavior.
-2. Map information architecture, internal linking, entities, intent and duplicate/thin pages.
-3. Validate metadata, headings and schema against visible content.
-4. Make important facts explicit in crawlable HTML with clear authorship/source context where relevant.
-5. Prefer stable URLs, descriptive anchors, concise definitions, structured factual sections and consistent entity naming.
-6. Do not create speculative AI-only markup or hide content from users.
-7. Validate rendered HTML and structured data after changes.
-## Output
-Separate conventional SEO findings from LLM/discovery enhancements and prioritize changes with measurable outcomes.
+1. Verify HTTP status, robots controls, canonical signals, sitemap membership and renderability.
+2. Map duplicate/parameterized URLs, localization and internal linking.
+3. Validate metadata/headings/schema against visible content.
+4. Make important facts/entities explicit in crawlable HTML with stable URLs.
+5. Separate standards-based search improvements from speculative LLM tactics.
+6. Verify rendered output and indexing signals after changes.
+
+## Conditional references
+- Crawling/canonicalization → `references/search-indexing.md`.
+- Structured data/LLM clarity → `references/structured-data-llm.md`.
+
+## Asset
+Use `assets/seo-audit.md` for evidence and priorities.

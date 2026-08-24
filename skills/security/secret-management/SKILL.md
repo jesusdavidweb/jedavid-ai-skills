@@ -1,13 +1,20 @@
 ---
 name: secret-management
-description: Use when configuring credentials, API keys, environment variables, CI/CD secrets, Cloudflare/Docker secrets, or investigating accidental secret exposure.
+description: Use when designing credential storage, API keys, environment variables, CI/CD secrets, container/cloud secrets, rotation or incident response for leaked tokens and private keys.
 ---
 # Secret Management
+
 ## Workflow
-1. Classify secrets and identify every runtime that needs them.
-2. Store secrets in environment/platform secret stores; commit only documented variable names/examples.
-3. Grant least privilege and scope tokens to required resources/actions.
-4. Prevent secrets from appearing in URLs, client bundles, logs, screenshots and error output.
-5. If exposure is suspected, rotate first, then remove from current files and history as required.
-6. Document rotation and ownership without recording secret values.
-7. Verify deployed runtime receives the secret while repository/build artifacts do not.
+1. Inventory secrets, owners, consumers, privilege and rotation capability.
+2. Keep secrets out of source, images, client bundles, URLs and ordinary logs.
+3. Prefer platform secret stores and workload identity over long-lived static credentials.
+4. Grant least privilege and isolate secrets per environment/service.
+5. Rotate immediately when exposure is credible and verify old credentials stop working.
+6. Record metadata/ownership, never secret values.
+
+## Conditional references
+- Lifecycle/rotation → `references/lifecycle.md`.
+- Containers/CI → `references/containers-ci.md`.
+
+## Asset
+Use `assets/rotation-runbook.md` for planned or emergency rotation.

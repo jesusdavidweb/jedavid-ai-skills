@@ -1,16 +1,21 @@
 ---
 name: oauth-oidc-auth-integration
-description: Use when implementing or debugging OAuth 2.0, OpenID Connect, social login, API authorization, scopes, redirect URIs, PKCE, service accounts, or invalid_scope/consent failures.
+description: Use when implementing or reviewing OAuth 2.x / OpenID Connect authorization, login, API access, PKCE, scopes, redirect URIs, access/refresh tokens, JWT validation, audience/issuer checks or multi-provider identity integrations.
 ---
-# OAuth and OIDC Integration
+# OAuth / OIDC Integration
+
 ## Workflow
-1. Identify whether the need is authentication, delegated authorization, machine-to-machine access, or a combination.
-2. Verify provider metadata and current official documentation before selecting flows/scopes.
-3. Use Authorization Code + PKCE for public/browser-native clients where supported; keep confidential-client secrets server-side.
-4. Match redirect URIs exactly and bind state/nonce to the initiating session.
-5. Request the minimum scopes needed and map every scope to an actual capability.
-6. Validate issuer, audience, signature, expiry and nonce for ID/access tokens as applicable.
-7. Store refresh tokens securely and implement rotation/revocation handling.
-8. Diagnose `invalid_scope` from the exact authorization/token request and provider-allowed scope set instead of guessing broader permissions.
-## Verification
-Success, denied consent, expired code, wrong redirect, bad state/nonce, revoked refresh token and insufficient scope.
+1. Identify client, authorization server, resource server and any OpenID Provider.
+2. Prefer authorization-code flow and avoid implicit-style token delivery.
+3. Use PKCE (S256) for public clients and normally for confidential clients too.
+4. Bind redirect URIs exactly and defend against CSRF/mix-up attacks.
+5. Validate tokens for signature, issuer, audience, time and intended token use.
+6. Scope tokens narrowly and protect refresh tokens with rotation or sender-constraining where supported.
+7. Test replay, wrong issuer/audience, expiry and redirect manipulation.
+
+## Conditional references
+- RFC 9700 / PKCE baseline → `references/oauth-security-bcp.md`.
+- Token validation → `references/token-validation.md`.
+
+## Asset
+Use `assets/oauth-review.md` for implementation review.

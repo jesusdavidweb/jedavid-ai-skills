@@ -1,5 +1,14 @@
 {
-  "name":"jedavid-ai-skills","private":true,"version":"1.1.0","description":"Portable Agent Skills for AI-assisted engineering",
-  "scripts":{"validate":"node --experimental-strip-types scripts/validate-skills.ts && npm run validate:resources && npm run validate:evals","validate:resources":"node --experimental-strip-types scripts/validate-resources.ts","validate:evals":"node --experimental-strip-types scripts/validate-evals.ts","catalog":"node --experimental-strip-types scripts/generate-catalog.ts","skills:list":"npx --yes skills add . --list"},
-  "engines":{"node":">=22"}
+  "name": "jedavid-ai-skills",
+  "private": true,
+  "version": "1.2.0",
+  "description": "Portable Agent Skills for AI-assisted engineering",
+  "scripts": {
+    "validate": "node --experimental-strip-types scripts/validate-skills.ts && npm run validate:resources && npm run validate:evals",
+    "validate:resources": "node --experimental-strip-types scripts/validate-resources.ts",
+    "validate:evals": "node --experimental-strip-types scripts/validate-evals.ts",
+    "catalog": "node --experimental-strip-types scripts/generate-catalog.ts",
+    "skills:list": "npx --yes skills@latest add . --list"
+  },
+  "engines": { "node": ">=22" }
 }

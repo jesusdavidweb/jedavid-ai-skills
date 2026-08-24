@@ -1,13 +1,22 @@
 ---
 name: wordpress-security-performance
-description: Use when hardening or optimizing WordPress/WooCommerce across permissions, exposure, authentication, updates, caching, PHP, database, cron, assets, and Core Web Vitals.
+description: Use when hardening or optimizing WordPress/WooCommerce across updates, filesystem exposure, authentication, caching, PHP, database, cron, assets and Core Web Vitals. Prefer wordpress-incident-debugging for an active outage.
 ---
 # WordPress Security and Performance
+
 ## Workflow
-1. Baseline before tuning: response timing, cache hit behavior, PHP workers, DB load, CWV and error rate.
-2. Patch core/plugins/themes and remove truly unused components after compatibility review.
-3. Harden filesystem permissions, disable execution in upload-like writable directories where architecture permits, block exposed backups/config/logs, and protect admin/auth surfaces without breaking APIs/cron.
-4. Tune page/object/opcode caching with correct WooCommerce exclusions.
-5. Diagnose autoload bloat, cron/Action Scheduler backlog, slow queries, oversized logs and heavy plugins.
-6. Optimize images/fonts/JS/CSS based on measured bottlenecks, not blanket minification.
-7. Verify checkout, account, REST, webhooks and admin after cache/security changes.
+1. Establish a baseline before changing cache, PHP, database or frontend behavior.
+2. Inventory versions, active code, cache layers, writable paths, exposed files, cron/Action Scheduler state and large database consumers.
+3. Apply least privilege while preserving updateability and required APIs.
+4. Optimize measured bottlenecks instead of applying blanket changes.
+5. Verify admin, REST, cron, account and WooCommerce dynamic paths.
+
+## Conditional references
+- Hardening → `references/hardening.md`.
+- Performance → `references/performance.md`.
+
+## Available scripts
+- `scripts/collect-wp-health.sh` — read-only baseline.
+
+## Asset
+Use `assets/remediation-plan.md` to prioritize work.

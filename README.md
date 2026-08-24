@@ -9,9 +9,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Skills](https://img.shields.io/badge/Agent_Skills-compatible-7c3aed)](docs/COMPATIBILITY.md)
 [![Skills](https://img.shields.io/badge/Skills-45-0ea5e9)](catalog/skills.json)
+[![Deep Skills](https://img.shields.io/badge/Deep_Skills-21-8b5cf6)](docs/DEEP-SKILL.md)
 [![Validate Agent Skills](https://github.com/jesusdavidweb/jedavid-ai-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/jesusdavidweb/jedavid-ai-skills/actions/workflows/validate-skills.yml)
 
-[Install](#install) · [Catalog](#skill-catalog) · [Deep Skills](docs/DEEP-SKILL.md) · [Compatibility](docs/COMPATIBILITY.md) · [Contributing](CONTRIBUTING.md)
+[Install](#install) · [Catalog](#skill-catalog) · [Deep Skills](#deep-skill-packages) · [Compatibility](docs/COMPATIBILITY.md) · [Contributing](CONTRIBUTING.md)
 
 </div>
 
@@ -21,7 +22,7 @@
 
 `jedavid-ai-skills` is a public library of reusable operating procedures for AI coding agents. Skills teach an agent when to load specialized knowledge, what evidence to gather, how to make a change safely and how to prove the result.
 
-The canonical format is portable `SKILL.md` content with progressive disclosure. Complex domains can become **deep skill packages** with conditional `references/`, deterministic `scripts/`, reusable `assets/`, and model-agnostic discovery/routing `evals/`.
+The canonical format is portable `SKILL.md` content with progressive disclosure. Complex domains become **deep skill packages** with conditional `references/`, deterministic `scripts/`, reusable `assets/`, and model-agnostic activation `evals/`.
 
 ```text
 Project requirements
@@ -60,26 +61,25 @@ See [`docs/INSTALLATION.md`](docs/INSTALLATION.md) for global installs, copy fal
 
 ## Deep skill packages
 
-The highest-complexity skills use progressive disclosure so agents do not load an entire operational manual into context unnecessarily.
+Deep packages keep `SKILL.md` as a concise router while loading volatile or specialized knowledge only when necessary:
 
 ```text
 skill/
 ├── SKILL.md       # routing + core workflow
 ├── references/    # conditional domain knowledge
-├── scripts/       # deterministic helpers
+├── scripts/       # deterministic helpers, read-only by default
 └── assets/        # reports, schemas, checklists
 ```
 
-Current flagship deep packages:
+**21 skills currently use deep packages:**
 
-- `wordpress-deep-audit`
-- `email-deliverability`
-- `cloudflare-platform`
-- `web-app-security`
-- `mcp-server-development`
-- `api-webhook-integration`
+- AI/security: `mcp-server-development`, `prompt-injection-defense`, `web-app-security`, `payment-flow-security`, `oauth-oidc-auth-integration`, `secret-management`.
+- WordPress/WooCommerce: `wordpress-deep-audit`, `wordpress-incident-debugging`, `wordpress-security-performance`, `woocommerce-engineering`.
+- Web/integration/data: `api-webhook-integration`, `event-driven-data`, `web-quality-audit`, `seo-llm-discoverability`, `cdn-cache-strategy`.
+- Infrastructure/operations: `cloudflare-platform`, `docker-dokploy`, `vps-nginx-cloudpanel`, `email-deliverability`, `observability-incident-response`.
+- Engineering: `testing-strategy`.
 
-The internal standard is documented in [`docs/DEEP-SKILL.md`](docs/DEEP-SKILL.md). Discovery and boundary cases live in [`evals/`](evals/README.md).
+The package standard is documented in [`docs/DEEP-SKILL.md`](docs/DEEP-SKILL.md). Activation boundary guidance lives in [`evals/BOUNDARIES.md`](evals/BOUNDARIES.md).
 
 ## Core principles
 
@@ -134,7 +134,7 @@ The internal standard is documented in [`docs/DEEP-SKILL.md`](docs/DEEP-SKILL.md
 
 ## Validation
 
-The repository validates skill metadata, deep-package resource links, eval fixture shape, generated catalog consistency and CLI discovery in GitHub Actions.
+The repository validates metadata, deep-resource links, deep-skill eval coverage, generated catalog consistency, the Agent Skills reference validator and CLI discovery/installation.
 
 ```bash
 npm run validate

@@ -1,15 +1,23 @@
 ---
 name: wordpress-incident-debugging
-description: Use for WordPress 5xx errors, fatal errors, blank pages, broken admin/frontend, plugin conflicts, cache regressions, PHP issues, or deployment failures.
+description: Use when a WordPress or WooCommerce site has 5xx errors, fatal errors, blank pages, broken admin/frontend behavior, plugin conflicts, cache regressions, PHP failures, or a production incident requiring root-cause isolation. Prefer wordpress-deep-audit for broad proactive audits.
 ---
 # WordPress Incident Debugging
+
 ## Workflow
-1. Identify which layer returns the failure: CDN, Nginx/Apache, PHP-FPM, WordPress, database, plugin/theme, external API.
-2. Correlate timestamps across relevant logs.
-3. Reproduce on the narrowest URL/action possible.
-4. Use WP-CLI to inspect state; avoid browser-only diagnosis.
-5. Test plugin/theme/cache hypotheses reversibly and one at a time.
-6. Confirm PHP version/extensions/memory/timeouts and upstream connectivity.
-7. Fix root cause, restore normal debug settings, and verify frontend/admin/cron/checkout as applicable.
-## Guardrails
-Do not mass-disable plugins on production unless outage severity justifies it and rollback is immediate.
+1. Establish symptom, affected URLs/actions, timeline, recent changes and blast radius.
+2. Identify the failing layer: CDN/proxy, web server, PHP-FPM, WordPress, database, plugin/theme, cache, filesystem or external dependency.
+3. Correlate timestamps across logs before clearing caches or restarting services.
+4. Reproduce the narrowest failing request and test one hypothesis at a time.
+5. Use WP-CLI and runtime inspection instead of browser-only diagnosis.
+6. Apply the smallest reversible fix and verify relevant frontend, admin, cron and checkout paths.
+
+## Conditional references
+- Layer-by-layer triage → `references/layer-triage.md`.
+- WP-CLI recovery and safe isolation → `references/wp-cli-recovery.md`.
+
+## Available scripts
+- `scripts/collect-wordpress-incident.sh` — read-only WordPress/PHP/runtime collection.
+
+## Asset
+Use `assets/incident-report.md` for timeline, root cause, fix and verification.
