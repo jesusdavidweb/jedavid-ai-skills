@@ -1,6 +1,6 @@
 ---
 name: postfix-billionmail
-description: Use for Postfix and BillionMail operations: SMTP routing, queues, containerized mail stacks, TLS, SASL, DKIM/Rspamd interaction, logs, transport maps and host-vs-container diagnosis.
+description: "Use for Postfix and BillionMail operations: SMTP routing, queues, containerized mail stacks, TLS, SASL, DKIM/Rspamd interaction, logs, transport maps and host-vs-container diagnosis."
 ---
 # Postfix and BillionMail
 ## Workflow
