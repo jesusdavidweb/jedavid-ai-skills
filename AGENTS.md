@@ -25,12 +25,21 @@ This repository is a reusable Agent Skills library. Keep all repository content 
 
 ## Skill design
 
-Every canonical skill lives at `skills/<domain>/<skill-id>/SKILL.md` and must contain YAML frontmatter with `name` and `description`. The `name` must be lowercase kebab-case and match the containing directory. Keep frontmatter minimal; repository-level licensing is MIT, while optional `license`, `compatibility`, or `metadata` fields should only be added when they carry skill-specific information.
+Every skill must contain YAML frontmatter with `name` and `description`. Names must be lowercase kebab-case and match the skill directory. Descriptions should state the trigger and scope clearly enough for agent discovery.
 
-For large skills, use `references/`, `scripts/`, or `assets/` beside `SKILL.md` so agents can load detail progressively.
+`skills/` is the canonical source of truth. Do not maintain divergent copies under `.claude/`, `.opencode/`, `.agents/` or client-specific directories. Adapters may reference or package canonical skills but must not fork their semantic content.
 
-Run `npm run validate` and `npm run catalog` after adding, renaming, or moving a skill. `catalog/skills.json` must stay generated and committed.
+## Deep skills
 
-Do not create duplicate canonical skill bodies under `.claude`, `.agents`, `.opencode`, or other client-specific paths. Installation tooling should link or copy from `skills/`.
+Use `docs/DEEP-SKILL.md` when a skill needs progressive disclosure.
 
-Executable reusable code belongs in `jedavid-web-tools`; this repository should primarily encode procedures and decision logic.
+- Keep `SKILL.md` as the routing/core workflow layer.
+- Load `references/` only when the relevant branch is active.
+- `scripts/` should be deterministic and read-only by default; diagnostic scripts must not silently remediate production systems.
+- `assets/` are reusable templates/schemas/fixtures, not duplicated prose.
+- Every resource should be explicitly referenced by its parent `SKILL.md`.
+- Deep skills should have discovery/boundary fixtures under `evals/`.
+
+Run `npm run validate` after changing skill metadata, deep-package resources or evals.
+
+Executable reusable products belong in `jedavid-web-tools`; this repository primarily encodes procedures, decision logic, safe deterministic helpers and reusable templates.
