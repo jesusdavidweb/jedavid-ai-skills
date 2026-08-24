@@ -14,6 +14,7 @@ description: Use when outbound email is rejected, throttled, delayed, spam-folde
 ## Conditional references
 - Authentication and identity → `references/authentication.md`.
 - Gmail/Google requirements → `references/gmail.md`.
+- Yahoo/AOL requirements → `references/yahoo.md`.
 - Outlook/Microsoft requirements → `references/microsoft.md`.
 - SMTP classification and reputation → `references/smtp-reputation.md`.
 ## Available scripts
