@@ -25,7 +25,7 @@ jobs:
           set -euo pipefail
           python -m pip install --disable-pip-version-check skills-ref==0.1.1
           while IFS= read -r skill; do
-            skills-ref validate "$(dirname "$skill")"
+            agentskills validate "$(dirname "$skill")"
           done < <(find skills -name SKILL.md -type f | sort)
       - name: Generate catalog
         run: npm run catalog
