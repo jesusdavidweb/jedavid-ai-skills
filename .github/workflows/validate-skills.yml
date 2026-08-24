@@ -9,6 +9,7 @@ on:
 permissions:
   contents: read
   statuses: write
+  issues: write
 
 jobs:
   validate:
@@ -51,6 +52,17 @@ jobs:
             -f state=failure \
             -f context=validation-diagnostics \
             -f description="$description" >/dev/null
+
+          body_file="$(mktemp)"
+          {
+            printf 'Validation failed for `%s`.\n\n' "$GITHUB_SHA"
+            printf '```text\n%s\n```\n' "$output"
+          } > "$body_file"
+          gh issue create \
+            --repo "${{ github.repository }}" \
+            --title "CI validation failure ${GITHUB_SHA:0:7}" \
+            --body-file "$body_file" >/dev/null || true
+
           exit "$code"
 
       - name: Validate canonical skills with skills-ref
