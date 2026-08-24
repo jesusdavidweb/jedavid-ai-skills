@@ -8,63 +8,43 @@ on:
 
 permissions:
   contents: read
-  statuses: write
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - id: repo_validate
-        name: Validate skills, resources and evals
+      - name: Validate skills, resources and evals
         run: npm run validate
 
-      - id: skills_ref
-        name: Validate canonical skills with skills-ref
+      - name: Validate canonical skills with skills-ref
         shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
-          set -u
+          set -euo pipefail
           python -m pip install --disable-pip-version-check skills-ref==0.1.1
-          failed=0
           while IFS= read -r skill; do
-            dir="$(dirname "$skill")"
-            name="$(basename "$dir")"
-            if output="$(agentskills validate "$dir" 2>&1)"; then
-              printf '%s\n' "$output"
-            else
-              printf '%s\n' "$output"
-              gh api "repos/${{ github.repository }}/statuses/${GITHUB_SHA}" \
-                -f state=failure \
-                -f context="skills-ref/$name" \
-                -f description="canonical validation failed" >/dev/null
-              failed=1
-            fi
+            agentskills validate "$(dirname "$skill")"
           done < <(find skills -name SKILL.md -type f | sort)
-          exit "$failed"
 
-      - id: catalog
-        name: Generate catalog
+      - name: Generate catalog
         run: npm run catalog
 
-      - id: catalog_diff
-        name: Ensure generated catalog is committed
+      - name: Ensure generated catalog is committed
         run: git diff --exit-code -- catalog/skills.json
 
-      - id: discovery
-        name: Verify skills CLI discovery
+      - name: Verify skills CLI discovery
         run: npx --yes skills@latest add . --list
 
-      - id: install
-        name: Verify installation for Codex, Claude Code and OpenCode
+      - name: Verify installation for Codex, Claude Code and OpenCode
         shell: bash
         run: |
           set -euo pipefail
@@ -72,28 +52,3 @@ jobs:
           cd "$tmp"
           npx --yes skills@latest add "$GITHUB_WORKSPACE" --skill repo-audit -a codex -a claude-code -a opencode --copy -y
           find . -type f -name SKILL.md -print
-
-      - name: Report job outcome
-        if: always()
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          declare -A outcomes=(
-            [repo_validate]="${{ steps.repo_validate.outcome }}"
-            [skills_ref]="${{ steps.skills_ref.outcome }}"
-            [catalog]="${{ steps.catalog.outcome }}"
-            [catalog_diff]="${{ steps.catalog_diff.outcome }}"
-            [discovery]="${{ steps.discovery.outcome }}"
-            [install]="${{ steps.install.outcome }}"
-          )
-          for step in repo_validate skills_ref catalog catalog_diff discovery install; do
-            outcome="${outcomes[$step]}"
-            state=success
-            [ "$outcome" = success ] || state=failure
-            gh api "repos/${{ github.repository }}/statuses/${GITHUB_SHA}" \
-              -f state="$state" \
-              -f context="validate/$step" \
-              -f description="$outcome" >/dev/null
-          done
