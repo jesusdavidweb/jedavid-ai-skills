@@ -3,8 +3,8 @@ name: skill-authoring
 description: Use when creating, reviewing, splitting, merging, or improving skills in this repository so they stay portable, discoverable, concise, safe, and operationally useful.
 ---
 # Skill Authoring
-## Design rules
-1. A skill should represent one reusable operational capability with a clear trigger.
+## Workflow
+1. Define one reusable operational capability with a clear trigger.
 2. Put trigger quality in `description`; agents often decide whether to load a skill from metadata alone.
 3. Prefer workflow and decision logic over encyclopedic reference material.
 4. Include guardrails when actions can affect production, security, money, data, DNS, email, or external systems.
