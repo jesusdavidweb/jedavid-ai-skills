@@ -1,0 +1,48 @@
+name: Bug report
+description: Report an incorrect, unsafe, outdated, or broken skill workflow.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping improve the skills library. Do not include secrets or sensitive infrastructure details.
+  - type: input
+    id: skill
+    attributes:
+      label: Skill
+      description: Which skill is affected?
+      placeholder: wordpress-deep-audit
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Describe the incorrect or broken behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should the skill instruct the agent to do instead?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and references
+      description: Include reproduction steps, primary documentation, or other evidence when available.
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Agent/runtime
+      options:
+        - Codex
+        - Claude Code
+        - OpenCode
+        - MiniMax
+        - Other Agent Skills-compatible client
+        - Not agent-specific
+    validations:
+      required: true
