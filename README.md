@@ -2,9 +2,9 @@
 
 # JeDavid AI Skills
 
-### Portable Agent Skills for AI-assisted engineering
+### Production-ready Agent Skills for modern engineering
 
-**45 production-oriented skills for Codex, Claude Code, OpenCode, MiniMax and other Agent Skills-compatible coding agents.**
+**An open-source library of 45 reusable skills for Codex, Claude Code, OpenCode, MiniMax, Cursor and other Agent Skills-compatible coding agents.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Skills](https://img.shields.io/badge/Agent_Skills-compatible-7c3aed)](docs/COMPATIBILITY.md)
@@ -13,56 +13,54 @@
 [![Validate Agent Skills](https://github.com/jesusdavidweb/jedavid-ai-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/jesusdavidweb/jedavid-ai-skills/actions/workflows/validate-skills.yml)
 [![OpenCode Catalog](https://github.com/jesusdavidweb/jedavid-ai-skills/actions/workflows/deploy-opencode-catalog.yml/badge.svg)](https://github.com/jesusdavidweb/jedavid-ai-skills/actions/workflows/deploy-opencode-catalog.yml)
 
-[Install](#install) · [OpenCode HTTP Catalog](#opencode-http-catalog) · [Catalog](#skill-catalog) · [Deep Skills](#deep-skill-packages) · [Compatibility](docs/COMPATIBILITY.md)
+[Quick start](#quick-start) · [OpenCode](#opencode-auto-updating-catalog) · [What is included?](#what-is-included) · [Contributing](CONTRIBUTING.md) · [Compatibility](docs/COMPATIBILITY.md)
 
 </div>
 
 ---
 
-## What is this?
+## Why this exists
 
-`jedavid-ai-skills` is a public library of reusable operating procedures for AI coding agents. Skills teach an agent when to load specialized knowledge, what evidence to gather, how to make a change safely and how to prove the result.
+AI coding agents are good at generating code, but production engineering needs more than code generation. Agents need repeatable procedures for discovering the real state of a system, handling risky operations, choosing the right evidence, and verifying that a change actually worked.
 
-The canonical format is portable `SKILL.md` content with progressive disclosure. Complex domains become **deep skill packages** with conditional `references/`, deterministic `scripts/`, reusable `assets/`, and model-agnostic activation `evals/`.
+**JeDavid AI Skills packages those procedures as portable Agent Skills.**
 
-```text
-Project requirements
-        │
-        ▼
-  jedavid-ai-skills
-  procedures + rules
-        │
-        ▼
- Codex / Claude Code / OpenCode / MiniMax / others
-        │
-   ┌────┴────┐
-   ▼         ▼
-Repository   MCP / APIs / CLIs
-```
+Instead of telling an agent how to audit WordPress, debug Cloudflare, investigate email deliverability, secure OAuth, review a payment flow, or build an MCP server every time, install the relevant skill and let the agent load that workflow when it is needed.
 
-## Install
+The library is designed around four principles:
+
+- **Evidence before changes** — inspect the actual system instead of guessing.
+- **Safe production work** — destructive and privileged operations require explicit guardrails and rollback thinking.
+- **Progressive disclosure** — specialized references and scripts are loaded only when needed.
+- **Portable by default** — canonical skills are not tied to one AI vendor or coding client.
+
+## Quick start
+
+You do not need to clone this repository.
 
 ```bash
-# Browse
+# See every available skill
 npx skills add jesusdavidweb/jedavid-ai-skills --list
 
-# Install interactively
+# Choose skills interactively
 npx skills add jesusdavidweb/jedavid-ai-skills
 
-# Install one skill
+# Install a specific skill
 npx skills add jesusdavidweb/jedavid-ai-skills --skill wordpress-deep-audit
 
-# Explicit agent targets
+# Install for a specific coding agent
 npx skills add jesusdavidweb/jedavid-ai-skills --skill repo-audit -a codex
 npx skills add jesusdavidweb/jedavid-ai-skills --skill repo-audit -a claude-code
 npx skills add jesusdavidweb/jedavid-ai-skills --skill repo-audit -a opencode
 ```
 
-See [`docs/INSTALLATION.md`](docs/INSTALLATION.md) for global installs, copy fallback and MiniMax notes.
+The open `skills` CLI supports the shared Agent Skills ecosystem and many coding agents. See [`docs/INSTALLATION.md`](docs/INSTALLATION.md) for global installation, updates, copy fallback, and client-specific notes.
 
-## OpenCode HTTP Catalog
+## OpenCode: auto-updating catalog
 
-For OpenCode V2, the recommended setup is the native auto-updating HTTP catalog. Add this once to `~/.config/opencode/opencode.jsonc`:
+OpenCode users can skip manual installation and subscribe directly to the generated HTTP catalog.
+
+Add once to `~/.config/opencode/opencode.jsonc`:
 
 ```jsonc
 {
@@ -73,54 +71,99 @@ For OpenCode V2, the recommended setup is the native auto-updating HTTP catalog.
 }
 ```
 
-GitHub Actions generates the catalog directly from canonical `skills/` and publishes it with GitHub Pages. Each package receives a deterministic content-hash `version`, so OpenCode refreshes its cached remote copy whenever that skill changes.
+The catalog is generated from the same canonical skills and published through GitHub Pages. Each package has a deterministic content version, allowing OpenCode to refresh changed skills instead of requiring a manual reinstall.
 
-No manual `npx skills update` is required for HTTP-catalog users.
+## What is included?
 
-## Deep skill packages
+The library covers recurring workflows across:
 
-Deep packages keep `SKILL.md` as a concise router while loading volatile or specialized knowledge only when necessary:
+| Domain | Examples |
+| --- | --- |
+| AI & agents | MCP servers, prompt-injection defense, agent handoffs, skill authoring |
+| Software engineering | repository audits, code review, debugging, testing, releases |
+| Web | Core Web Vitals, technical SEO, LLM discoverability, APIs, webhooks, i18n |
+| WordPress & WooCommerce | deep audits, incidents, HPOS, WP-CLI, security, performance, Bricks |
+| Cloudflare | Workers, D1, R2, KV, Queues, Durable Objects, Access, DNS, security |
+| Infrastructure | Docker, Dokploy, Linux VPS, Nginx, CloudPanel, observability, backups |
+| Security | web-app security, OAuth/OIDC, payments, secrets, trust boundaries |
+| Email | deliverability, SPF/DKIM/DMARC, SMTP, Postfix, BillionMail |
+| Automation & data | event-driven systems, PostgreSQL/Supabase, n8n orchestration |
+| Product & marketing | Figma design systems, UX audits, analytics, affiliate platforms |
+
+Browse the machine-readable [`catalog/skills.json`](catalog/skills.json) or the [`skills/`](skills/) directory for the complete catalog.
+
+## What makes a deep skill different?
+
+Simple skills remain intentionally small. Complex workflows become **deep skill packages**:
 
 ```text
 skill/
-├── SKILL.md       # routing + core workflow
-├── references/    # conditional domain knowledge
-├── scripts/       # deterministic helpers, read-only by default
-└── assets/        # reports, schemas, checklists
+├── SKILL.md       # concise routing + core workflow
+├── references/    # conditional, specialized knowledge
+├── scripts/       # deterministic helpers; diagnostic scripts are read-only by default
+└── assets/        # reusable reports, schemas, checklists, and templates
 ```
 
-**21 skills currently use deep packages:**
+This keeps the initial context small while allowing an agent to load deeper material only when the task requires it.
 
-- AI/security: `mcp-server-development`, `prompt-injection-defense`, `web-app-security`, `payment-flow-security`, `oauth-oidc-auth-integration`, `secret-management`.
-- WordPress/WooCommerce: `wordpress-deep-audit`, `wordpress-incident-debugging`, `wordpress-security-performance`, `woocommerce-engineering`.
-- Web/integration/data: `api-webhook-integration`, `event-driven-data`, `web-quality-audit`, `seo-llm-discoverability`, `cdn-cache-strategy`.
-- Infrastructure/operations: `cloudflare-platform`, `docker-dokploy`, `vps-nginx-cloudpanel`, `email-deliverability`, `observability-incident-response`.
-- Engineering: `testing-strategy`.
+There are currently **21 deep skills**, covering the highest-risk or highest-complexity areas such as application security, WordPress operations, Cloudflare architecture, email deliverability, MCP development, OAuth, payments, webhooks, infrastructure, and performance.
 
-## Skill catalog
+See [`docs/DEEP-SKILL.md`](docs/DEEP-SKILL.md).
 
-The full machine-readable inventory is available at [`catalog/skills.json`](catalog/skills.json). Canonical skills are grouped under `skills/` by domain.
+## Works across agents
 
-## Validation
+`skills/` is the canonical source of truth. The repository intentionally avoids maintaining divergent copies for individual clients.
+
+The open `skills` CLI can distribute canonical Agent Skills to supported clients such as Codex, Claude Code, OpenCode, Cursor and many others. OpenCode additionally has its native HTTP catalog distribution.
+
+See [`docs/COMPATIBILITY.md`](docs/COMPATIBILITY.md) for the compatibility model.
+
+## Quality and validation
 
 Every push and pull request validates:
 
-- canonical Agent Skills metadata;
-- deep-package references, scripts and assets;
-- activation eval fixtures;
-- the reference `skills-ref` validator;
+- Agent Skills metadata and naming;
+- YAML/frontmatter correctness;
+- deep-package references, scripts, and assets;
+- activation/boundary eval fixtures;
+- reference Agent Skills validation;
 - deterministic catalog generation;
-- discovery with the open `skills` CLI;
-- installation for Codex, Claude Code and OpenCode.
+- discovery through the open `skills` CLI;
+- installation into Codex, Claude Code, and OpenCode.
 
-The OpenCode deployment workflow additionally builds and validates the HTTP catalog before publishing it to GitHub Pages.
+The OpenCode deployment workflow separately builds and validates the HTTP catalog before publishing it.
 
-## Source of truth
+## Contributing
 
-`skills/` is the only canonical source. Generated catalogs and client-specific distribution layers must derive from it; do not maintain divergent skill bodies.
+Community contributions are welcome: new skills, better references, bug fixes, activation evals, compatibility improvements, and documentation are all useful.
 
-See [`docs/COMPATIBILITY.md`](docs/COMPATIBILITY.md), [`docs/DEEP-SKILL.md`](docs/DEEP-SKILL.md), and [`CONTRIBUTING.md`](CONTRIBUTING.md).
+Start with [`CONTRIBUTING.md`](CONTRIBUTING.md). New contributors can also use the repository's **Bug report** and **Skill request** issue templates.
+
+Please follow [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md). Security-sensitive reports belong in [`SECURITY.md`](SECURITY.md), not public issues.
+
+## Repository structure
+
+```text
+jedavid-ai-skills/
+├── skills/                  # canonical Agent Skills
+├── evals/                   # activation and boundary fixtures
+├── catalog/                 # machine-readable canonical inventory
+├── scripts/                 # repository validation and catalog generation
+├── templates/               # starting point for new skills
+├── docs/                    # installation, compatibility and deep-skill docs
+└── .github/                 # CI, deployment, issue and PR templates
+```
 
 ## License
 
-MIT. See [`LICENSE`](LICENSE).
+Distributed under the **MIT License**. You can use, modify, and redistribute the skills subject to the license terms. See [`LICENSE`](LICENSE).
+
+---
+
+<div align="center">
+
+Maintained by **Jesus David Web**. Built in public for engineers using AI agents on real systems.
+
+If the library saves you time, a GitHub star helps other people discover it.
+
+</div>
