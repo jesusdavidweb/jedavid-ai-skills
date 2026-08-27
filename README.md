@@ -10,8 +10,8 @@
 [![Agent Skills](https://img.shields.io/badge/Agent_Skills-compatible-7c3aed)](docs/COMPATIBILITY.md)
 [![Skills](https://img.shields.io/badge/Skills-45-0ea5e9)](catalog/skills.json)
 [![Deep Skills](https://img.shields.io/badge/Deep_Skills-21-8b5cf6)](docs/DEEP-SKILL.md)
-[![Validate Agent Skills](https://github.com/jesusdavidweb/jedavid-ai-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/jesusdavidweb/jedavid-ai-skills/actions/workflows/validate-skills.yml)
-[![OpenCode Catalog](https://github.com/jesusdavidweb/jedavid-ai-skills/actions/workflows/deploy-opencode-catalog.yml/badge.svg)](https://github.com/jesusdavidweb/jedavid-ai-skills/actions/workflows/deploy-opencode-catalog.yml)
+[![Validate Agent Skills](https://github.com/jesusdavidweb/skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/jesusdavidweb/skills/actions/workflows/validate-skills.yml)
+[![OpenCode Catalog](https://github.com/jesusdavidweb/skills/actions/workflows/deploy-opencode-catalog.yml/badge.svg)](https://github.com/jesusdavidweb/skills/actions/workflows/deploy-opencode-catalog.yml)
 
 [Quick start](#quick-start) · [OpenCode](#opencode-auto-updating-catalog) · [What is included?](#what-is-included) · [Contributing](CONTRIBUTING.md) · [Compatibility](docs/COMPATIBILITY.md)
 
@@ -36,29 +36,45 @@ The library is designed around four principles:
 
 ## Quick start
 
-You do not need to clone this repository.
+You do not need to clone this repository. Use whichever JavaScript package runner you already have:
+
+```bash
+# npm
+npx skills add jesusdavidweb/skills
+
+# pnpm
+pnpm dlx skills add jesusdavidweb/skills
+
+# Bun
+bunx skills add jesusdavidweb/skills
+
+# Yarn
+yarn dlx skills add jesusdavidweb/skills
+```
+
+Common operations use the same `skills` CLI arguments regardless of runner:
 
 ```bash
 # See every available skill
-npx skills add jesusdavidweb/jedavid-ai-skills --list
-
-# Choose skills interactively
-npx skills add jesusdavidweb/jedavid-ai-skills
+npx skills add jesusdavidweb/skills --list
 
 # Install a specific skill
-npx skills add jesusdavidweb/jedavid-ai-skills --skill wordpress-deep-audit
+npx skills add jesusdavidweb/skills --skill wordpress-deep-audit
 
-# Install for a specific coding agent
-npx skills add jesusdavidweb/jedavid-ai-skills --skill repo-audit -a codex
-npx skills add jesusdavidweb/jedavid-ai-skills --skill repo-audit -a claude-code
-npx skills add jesusdavidweb/jedavid-ai-skills --skill repo-audit -a opencode
+# Install globally across supported/detected agents
+npx skills add jesusdavidweb/skills --all -g
+
+# Target a specific coding agent
+npx skills add jesusdavidweb/skills --skill repo-audit -a codex
+npx skills add jesusdavidweb/skills --skill repo-audit -a claude-code
+npx skills add jesusdavidweb/skills --skill repo-audit -a opencode
 ```
 
-The open `skills` CLI supports the shared Agent Skills ecosystem and many coding agents. See [`docs/INSTALLATION.md`](docs/INSTALLATION.md) for global installation, updates, copy fallback, and client-specific notes.
+The open `skills` CLI supports the shared Agent Skills ecosystem and many coding agents. See [`docs/INSTALLATION.md`](docs/INSTALLATION.md) for npm, pnpm, Bun and Yarn commands, global installation, updates, copy fallback, and client-specific notes.
 
 ## OpenCode: auto-updating catalog
 
-OpenCode users can skip manual installation and subscribe directly to the generated HTTP catalog.
+OpenCode V2 users can skip manual installation and subscribe directly to the generated HTTP catalog.
 
 Add once to `~/.config/opencode/opencode.jsonc`:
 
@@ -66,12 +82,14 @@ Add once to `~/.config/opencode/opencode.jsonc`:
 {
   "$schema": "https://opencode.ai/config.json",
   "skills": [
-    "https://jesusdavidweb.github.io/jedavid-ai-skills/"
+    "https://skills.jesusdavid.net/"
   ]
 }
 ```
 
-The catalog is generated from the same canonical skills and published through GitHub Pages. Each package has a deterministic content version, allowing OpenCode to refresh changed skills instead of requiring a manual reinstall.
+The catalog is generated from the same canonical skills and published at `skills.jesusdavid.net`. Each package has a deterministic content version, allowing compatible OpenCode versions to refresh changed skills instead of requiring a manual reinstall.
+
+OpenCode V1 users should install through the `skills` CLI like any other supported agent.
 
 ## What is included?
 
@@ -114,7 +132,7 @@ See [`docs/DEEP-SKILL.md`](docs/DEEP-SKILL.md).
 
 `skills/` is the canonical source of truth. The repository intentionally avoids maintaining divergent copies for individual clients.
 
-The open `skills` CLI can distribute canonical Agent Skills to supported clients such as Codex, Claude Code, OpenCode, Cursor and many others. OpenCode additionally has its native HTTP catalog distribution.
+The open `skills` CLI can distribute canonical Agent Skills to supported clients such as Codex, Claude Code, OpenCode, Cursor and many others. OpenCode V2 additionally has its native HTTP catalog distribution.
 
 See [`docs/COMPATIBILITY.md`](docs/COMPATIBILITY.md) for the compatibility model.
 
@@ -144,7 +162,7 @@ Please follow [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md). Security-sensitive rep
 ## Repository structure
 
 ```text
-jedavid-ai-skills/
+skills/
 ├── skills/                  # canonical Agent Skills
 ├── evals/                   # activation and boundary fixtures
 ├── catalog/                 # machine-readable canonical inventory
