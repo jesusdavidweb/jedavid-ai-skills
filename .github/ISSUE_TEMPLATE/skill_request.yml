@@ -1,0 +1,38 @@
+name: Skill request
+description: Propose a new reusable Agent Skill or a meaningful expansion of an existing one.
+title: "[Skill]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: usecase
+    attributes:
+      label: Reusable use case
+      description: What recurring workflow should this skill solve, and who would benefit from it?
+    validations:
+      required: true
+  - type: textarea
+    id: triggers
+    attributes:
+      label: Activation examples
+      description: Give 2-4 prompts that should activate this skill and, if useful, one that should not.
+    validations:
+      required: true
+  - type: textarea
+    id: workflow
+    attributes:
+      label: Proposed workflow
+      description: Outline discovery, actions, guardrails, and verification.
+  - type: textarea
+    id: references
+    attributes:
+      label: Primary references
+      description: Link official specifications or primary documentation for changing/volatile behavior.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Contribution fit
+      options:
+        - label: This is reusable across more than one project.
+          required: true
+        - label: I have not included credentials or private customer information.
+          required: true
