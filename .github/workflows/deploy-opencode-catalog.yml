@@ -1,0 +1,64 @@
+name: Deploy OpenCode HTTP Catalog
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'skills/**'
+      - 'scripts/generate-opencode-catalog.ts'
+      - 'package.json'
+      - '.github/workflows/deploy-opencode-catalog.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate canonical skills
+        run: npm run validate
+
+      - name: Generate OpenCode HTTP catalog
+        run: npm run catalog:opencode
+
+      - name: Validate generated catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f .dist/opencode/index.json
+          node -e "const x=require('./.dist/opencode/index.json'); if (!Array.isArray(x.skills) || !x.skills.length) process.exit(1); console.log('Catalog skills:', x.skills.length)"
+          while IFS= read -r skill; do
+            name="$(basename "$(dirname "$skill")")"
+            test -f ".dist/opencode/$name/$name.md"
+          done < <(find skills -name SKILL.md -type f | sort)
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .dist/opencode
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
