@@ -9,6 +9,7 @@
     "validate:resources": "node --experimental-strip-types scripts/validate-resources.ts",
     "validate:evals": "node --experimental-strip-types scripts/validate-evals.ts",
     "catalog": "node --experimental-strip-types scripts/generate-catalog.ts",
+    "catalog:opencode": "node --experimental-strip-types scripts/generate-opencode-catalog.ts",
     "skills:list": "npx --yes skills@latest add . --list"
   },
   "engines": { "node": ">=22" }
