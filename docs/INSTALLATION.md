@@ -106,6 +106,38 @@ npx skills add jesusdavidweb/skills \
   --skill '*' -a codex -a claude-code -a opencode
 ```
 
+## Updating CLI-installed skills
+
+Skills installed through the `skills` CLI are **not automatically synchronized when the GitHub repository changes**. Run an update explicitly to fetch newer versions of your installed skills:
+
+```bash
+# npm
+npx skills update
+
+# pnpm
+pnpm dlx skills update
+
+# Bun
+bunx skills update
+
+# Yarn
+yarn dlx skills update
+```
+
+If you installed skills globally, use the global update flag where supported by your installed CLI version:
+
+```bash
+npx skills update -g
+```
+
+You can inspect the currently installed skills with:
+
+```bash
+npx skills list
+```
+
+OpenCode V2 HTTP-catalog users do not need the manual update command for this repository: compatible OpenCode versions use catalog versions to refresh changed remote skills.
+
 ## Symlink fallback
 
 The CLI normally uses a canonical installation and symlinks skills into agent directories. If the target environment does not handle symlinks correctly, force physical copies:
@@ -124,32 +156,6 @@ npx skills add jesusdavidweb/skills -g
 ```
 
 If the current `skills` CLI exposes a MiniMax-specific target, prefer that target.
-
-## Updating CLI-installed skills
-
-Use the same package runner used for installation:
-
-```bash
-# npm
-npx skills update
-
-# pnpm
-pnpm dlx skills update
-
-# Bun
-bunx skills update
-
-# Yarn
-yarn dlx skills update
-```
-
-List installed skills:
-
-```bash
-npx skills list
-```
-
-OpenCode V2 HTTP-catalog users do not need this update command for this repository; OpenCode uses catalog versions to refresh cached remote skills.
 
 ## Use without installing
 
