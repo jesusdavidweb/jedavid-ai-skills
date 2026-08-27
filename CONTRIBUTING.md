@@ -78,7 +78,7 @@ CI additionally checks Agent Skills reference validation and installation for Co
 
 `skills/` is the canonical source of truth. Do not maintain independent copies of skill bodies for individual AI clients. Generated catalogs and adapters must derive from canonical skills. See `docs/COMPATIBILITY.md`.
 
-The open `skills` CLI can install the repository across many Agent Skills-compatible clients, while OpenCode additionally supports the generated HTTP catalog. citeturn0search0turn0search1
+The open `skills` CLI can install the repository across many Agent Skills-compatible clients, while OpenCode additionally supports the generated HTTP catalog.
 
 ## Security
 
