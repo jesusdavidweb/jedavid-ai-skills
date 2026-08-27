@@ -1,233 +1,56 @@
 {
   "schemaVersion": 1,
-  "repository": "jesusdavidweb/jedavid-ai-skills",
+  "repository": "jesusdavidweb/skills",
   "license": "MIT",
-  "skillCount": 45,
+  "skillCount": 48,
   "skills": [
-    {
-      "name": "agent-plugin-packaging",
-      "category": "ai",
-      "path": "skills/ai/agent-plugin-packaging/SKILL.md"
-    },
-    {
-      "name": "mcp-server-development",
-      "category": "ai",
-      "path": "skills/ai/mcp-server-development/SKILL.md"
-    },
-    {
-      "name": "prompt-injection-defense",
-      "category": "ai",
-      "path": "skills/ai/prompt-injection-defense/SKILL.md"
-    },
-    {
-      "name": "event-driven-data",
-      "category": "automation",
-      "path": "skills/automation/event-driven-data/SKILL.md"
-    },
-    {
-      "name": "cloudflare-access-dns-security",
-      "category": "cloudflare",
-      "path": "skills/cloudflare/cloudflare-access-dns-security/SKILL.md"
-    },
-    {
-      "name": "cloudflare-platform",
-      "category": "cloudflare",
-      "path": "skills/cloudflare/cloudflare-platform/SKILL.md"
-    },
-    {
-      "name": "ai-agent-handoff",
-      "category": "core",
-      "path": "skills/core/ai-agent-handoff/SKILL.md"
-    },
-    {
-      "name": "bug-investigation",
-      "category": "core",
-      "path": "skills/core/bug-investigation/SKILL.md"
-    },
-    {
-      "name": "code-review",
-      "category": "core",
-      "path": "skills/core/code-review/SKILL.md"
-    },
-    {
-      "name": "github-delivery",
-      "category": "core",
-      "path": "skills/core/github-delivery/SKILL.md"
-    },
-    {
-      "name": "production-change",
-      "category": "core",
-      "path": "skills/core/production-change/SKILL.md"
-    },
-    {
-      "name": "repo-audit",
-      "category": "core",
-      "path": "skills/core/repo-audit/SKILL.md"
-    },
-    {
-      "name": "dependency-architecture-review",
-      "category": "development",
-      "path": "skills/development/dependency-architecture-review/SKILL.md"
-    },
-    {
-      "name": "python-automation",
-      "category": "development",
-      "path": "skills/development/python-automation/SKILL.md"
-    },
-    {
-      "name": "release-engineering",
-      "category": "development",
-      "path": "skills/development/release-engineering/SKILL.md"
-    },
-    {
-      "name": "testing-strategy",
-      "category": "development",
-      "path": "skills/development/testing-strategy/SKILL.md"
-    },
-    {
-      "name": "typescript-web-stack",
-      "category": "development",
-      "path": "skills/development/typescript-web-stack/SKILL.md"
-    },
-    {
-      "name": "backup-disaster-recovery",
-      "category": "devops",
-      "path": "skills/devops/backup-disaster-recovery/SKILL.md"
-    },
-    {
-      "name": "docker-dokploy",
-      "category": "devops",
-      "path": "skills/devops/docker-dokploy/SKILL.md"
-    },
-    {
-      "name": "observability-incident-response",
-      "category": "devops",
-      "path": "skills/devops/observability-incident-response/SKILL.md"
-    },
-    {
-      "name": "vps-nginx-cloudpanel",
-      "category": "devops",
-      "path": "skills/devops/vps-nginx-cloudpanel/SKILL.md"
-    },
-    {
-      "name": "email-deliverability",
-      "category": "email",
-      "path": "skills/email/email-deliverability/SKILL.md"
-    },
-    {
-      "name": "postfix-billionmail",
-      "category": "email",
-      "path": "skills/email/postfix-billionmail/SKILL.md"
-    },
-    {
-      "name": "affiliate-content-platform",
-      "category": "marketing",
-      "path": "skills/marketing/affiliate-content-platform/SKILL.md"
-    },
-    {
-      "name": "analytics-measurement",
-      "category": "marketing",
-      "path": "skills/marketing/analytics-measurement/SKILL.md"
-    },
-    {
-      "name": "skill-authoring",
-      "category": "meta",
-      "path": "skills/meta/skill-authoring/SKILL.md"
-    },
-    {
-      "name": "domain-dns-migration",
-      "category": "operations",
-      "path": "skills/operations/domain-dns-migration/SKILL.md"
-    },
-    {
-      "name": "figma-design-system",
-      "category": "product-design",
-      "path": "skills/product-design/figma-design-system/SKILL.md"
-    },
-    {
-      "name": "product-ux-audit",
-      "category": "product-design",
-      "path": "skills/product-design/product-ux-audit/SKILL.md"
-    },
-    {
-      "name": "oauth-oidc-auth-integration",
-      "category": "security",
-      "path": "skills/security/oauth-oidc-auth-integration/SKILL.md"
-    },
-    {
-      "name": "payment-flow-security",
-      "category": "security",
-      "path": "skills/security/payment-flow-security/SKILL.md"
-    },
-    {
-      "name": "secret-management",
-      "category": "security",
-      "path": "skills/security/secret-management/SKILL.md"
-    },
-    {
-      "name": "web-app-security",
-      "category": "security",
-      "path": "skills/security/web-app-security/SKILL.md"
-    },
-    {
-      "name": "api-webhook-integration",
-      "category": "web",
-      "path": "skills/web/api-webhook-integration/SKILL.md"
-    },
-    {
-      "name": "cdn-cache-strategy",
-      "category": "web",
-      "path": "skills/web/cdn-cache-strategy/SKILL.md"
-    },
-    {
-      "name": "localization-i18n",
-      "category": "web",
-      "path": "skills/web/localization-i18n/SKILL.md"
-    },
-    {
-      "name": "seo-llm-discoverability",
-      "category": "web",
-      "path": "skills/web/seo-llm-discoverability/SKILL.md"
-    },
-    {
-      "name": "web-quality-audit",
-      "category": "web",
-      "path": "skills/web/web-quality-audit/SKILL.md"
-    },
-    {
-      "name": "webflow-engineering",
-      "category": "web",
-      "path": "skills/web/webflow-engineering/SKILL.md"
-    },
-    {
-      "name": "bricks-frontend",
-      "category": "wordpress",
-      "path": "skills/wordpress/bricks-frontend/SKILL.md"
-    },
-    {
-      "name": "woocommerce-engineering",
-      "category": "wordpress",
-      "path": "skills/wordpress/woocommerce-engineering/SKILL.md"
-    },
-    {
-      "name": "wordpress-deep-audit",
-      "category": "wordpress",
-      "path": "skills/wordpress/wordpress-deep-audit/SKILL.md"
-    },
-    {
-      "name": "wordpress-incident-debugging",
-      "category": "wordpress",
-      "path": "skills/wordpress/wordpress-incident-debugging/SKILL.md"
-    },
-    {
-      "name": "wordpress-security-performance",
-      "category": "wordpress",
-      "path": "skills/wordpress/wordpress-security-performance/SKILL.md"
-    },
-    {
-      "name": "wp-cli-database-ops",
-      "category": "wordpress",
-      "path": "skills/wordpress/wp-cli-database-ops/SKILL.md"
-    }
+    {"name":"agent-plugin-packaging","category":"ai","path":"skills/ai/agent-plugin-packaging/SKILL.md"},
+    {"name":"mcp-server-development","category":"ai","path":"skills/ai/mcp-server-development/SKILL.md"},
+    {"name":"prompt-injection-defense","category":"ai","path":"skills/ai/prompt-injection-defense/SKILL.md"},
+    {"name":"event-driven-data","category":"automation","path":"skills/automation/event-driven-data/SKILL.md"},
+    {"name":"cloudflare-access-dns-security","category":"cloudflare","path":"skills/cloudflare/cloudflare-access-dns-security/SKILL.md"},
+    {"name":"cloudflare-platform","category":"cloudflare","path":"skills/cloudflare/cloudflare-platform/SKILL.md"},
+    {"name":"ai-agent-handoff","category":"core","path":"skills/core/ai-agent-handoff/SKILL.md"},
+    {"name":"bug-investigation","category":"core","path":"skills/core/bug-investigation/SKILL.md"},
+    {"name":"code-review","category":"core","path":"skills/core/code-review/SKILL.md"},
+    {"name":"github-delivery","category":"core","path":"skills/core/github-delivery/SKILL.md"},
+    {"name":"production-change","category":"core","path":"skills/core/production-change/SKILL.md"},
+    {"name":"repo-audit","category":"core","path":"skills/core/repo-audit/SKILL.md"},
+    {"name":"dependency-architecture-review","category":"development","path":"skills/development/dependency-architecture-review/SKILL.md"},
+    {"name":"python-automation","category":"development","path":"skills/development/python-automation/SKILL.md"},
+    {"name":"release-engineering","category":"development","path":"skills/development/release-engineering/SKILL.md"},
+    {"name":"testing-strategy","category":"development","path":"skills/development/testing-strategy/SKILL.md"},
+    {"name":"typescript-web-stack","category":"development","path":"skills/development/typescript-web-stack/SKILL.md"},
+    {"name":"backup-disaster-recovery","category":"devops","path":"skills/devops/backup-disaster-recovery/SKILL.md"},
+    {"name":"docker-dokploy","category":"devops","path":"skills/devops/docker-dokploy/SKILL.md"},
+    {"name":"observability-incident-response","category":"devops","path":"skills/devops/observability-incident-response/SKILL.md"},
+    {"name":"vps-nginx-cloudpanel","category":"devops","path":"skills/devops/vps-nginx-cloudpanel/SKILL.md"},
+    {"name":"email-deliverability","category":"email","path":"skills/email/email-deliverability/SKILL.md"},
+    {"name":"mail-delivery-observability","category":"email","path":"skills/email/mail-delivery-observability/SKILL.md"},
+    {"name":"postfix-billionmail","category":"email","path":"skills/email/postfix-billionmail/SKILL.md"},
+    {"name":"postfix-selective-relay","category":"email","path":"skills/email/postfix-selective-relay/SKILL.md"},
+    {"name":"smtp-production-debugging","category":"email","path":"skills/email/smtp-production-debugging/SKILL.md"},
+    {"name":"affiliate-content-platform","category":"marketing","path":"skills/marketing/affiliate-content-platform/SKILL.md"},
+    {"name":"analytics-measurement","category":"marketing","path":"skills/marketing/analytics-measurement/SKILL.md"},
+    {"name":"skill-authoring","category":"meta","path":"skills/meta/skill-authoring/SKILL.md"},
+    {"name":"domain-dns-migration","category":"operations","path":"skills/operations/domain-dns-migration/SKILL.md"},
+    {"name":"figma-design-system","category":"product-design","path":"skills/product-design/figma-design-system/SKILL.md"},
+    {"name":"product-ux-audit","category":"product-design","path":"skills/product-design/product-ux-audit/SKILL.md"},
+    {"name":"oauth-oidc-auth-integration","category":"security","path":"skills/security/oauth-oidc-auth-integration/SKILL.md"},
+    {"name":"payment-flow-security","category":"security","path":"skills/security/payment-flow-security/SKILL.md"},
+    {"name":"secret-management","category":"security","path":"skills/security/secret-management/SKILL.md"},
+    {"name":"web-app-security","category":"security","path":"skills/security/web-app-security/SKILL.md"},
+    {"name":"api-webhook-integration","category":"web","path":"skills/web/api-webhook-integration/SKILL.md"},
+    {"name":"cdn-cache-strategy","category":"web","path":"skills/web/cdn-cache-strategy/SKILL.md"},
+    {"name":"localization-i18n","category":"web","path":"skills/web/localization-i18n/SKILL.md"},
+    {"name":"seo-llm-discoverability","category":"web","path":"skills/web/seo-llm-discoverability/SKILL.md"},
+    {"name":"web-quality-audit","category":"web","path":"skills/web/web-quality-audit/SKILL.md"},
+    {"name":"webflow-engineering","category":"web","path":"skills/web/webflow-engineering/SKILL.md"},
+    {"name":"bricks-frontend","category":"wordpress","path":"skills/wordpress/bricks-frontend/SKILL.md"},
+    {"name":"woocommerce-engineering","category":"wordpress","path":"skills/wordpress/woocommerce-engineering/SKILL.md"},
+    {"name":"wordpress-deep-audit","category":"wordpress","path":"skills/wordpress/wordpress-deep-audit/SKILL.md"},
+    {"name":"wordpress-incident-debugging","category":"wordpress","path":"skills/wordpress/wordpress-incident-debugging/SKILL.md"},
+    {"name":"wordpress-security-performance","category":"wordpress","path":"skills/wordpress/wordpress-security-performance/SKILL.md"},
+    {"name":"wp-cli-database-ops","category":"wordpress","path":"skills/wordpress/wp-cli-database-ops/SKILL.md"}
   ]
 }
