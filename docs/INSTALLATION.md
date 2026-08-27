@@ -1,8 +1,47 @@
 # Installation
 
-JeDavid AI Skills follows the portable Agent Skills `SKILL.md` convention and is designed to be installed with the open `skills` CLI.
+JeDavid AI Skills follows the portable Agent Skills `SKILL.md` convention. Use the open `skills` CLI for portable installation, or the native OpenCode HTTP catalog for zero-maintenance OpenCode updates.
 
-## Browse the catalog
+## OpenCode: recommended HTTP catalog
+
+The repository publishes a generated OpenCode V2 HTTP catalog through GitHub Pages. Add it once to your global `~/.config/opencode/opencode.jsonc`:
+
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  "skills": [
+    "https://jesusdavidweb.github.io/jedavid-ai-skills/"
+  ]
+}
+```
+
+OpenCode reads `index.json` from that base URL and downloads each skill on demand. Every published skill has a deterministic content hash in its `version`; when canonical skill content changes, the version changes and OpenCode refreshes its cached copy automatically.
+
+The HTTP catalog is generated from `skills/` on every relevant push to `main`. Never edit the generated catalog as a second source of truth.
+
+> GitHub Pages must use **GitHub Actions** as its deployment source for the repository. The `Deploy OpenCode HTTP Catalog` workflow builds and publishes the catalog.
+
+### OpenCode permissions
+
+Skills use OpenCode's native `skill` permission. A permissive global setup is:
+
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  "skills": [
+    "https://jesusdavidweb.github.io/jedavid-ai-skills/"
+  ],
+  "permission": {
+    "skill": {
+      "*": "allow"
+    }
+  }
+}
+```
+
+Use narrower `ask`/`deny` rules when you do not want every skill available automatically.
+
+## Browse the portable catalog
 
 ```bash
 npx skills add jesusdavidweb/jedavid-ai-skills --list
@@ -32,7 +71,7 @@ npx skills add jesusdavidweb/jedavid-ai-skills \
 npx skills add jesusdavidweb/jedavid-ai-skills \
   --skill repo-audit -a claude-code
 
-# OpenCode
+# OpenCode (alternative to the HTTP catalog)
 npx skills add jesusdavidweb/jedavid-ai-skills \
   --skill repo-audit -a opencode
 ```
@@ -68,17 +107,15 @@ npx skills add jesusdavidweb/jedavid-ai-skills \
 
 ## MiniMax Code
 
-MiniMax officially uses the same `npx skills add` ecosystem for Agent Skills. Because MiniMax Code's client-specific installation path is not currently documented as a stable public contract, do not invent or hard-code a `.minimax/skills` directory.
-
-Use the generic installer:
+MiniMax uses the same `npx skills add` ecosystem for Agent Skills. Because MiniMax Code's client-specific installation path is not treated here as a stable public contract, do not invent or hard-code a `.minimax/skills` directory.
 
 ```bash
 npx skills add jesusdavidweb/jedavid-ai-skills -g
 ```
 
-If the current `skills` CLI exposes a MiniMax-specific target, prefer that target. Otherwise use a compatible Agent Skills destination supported by the current MiniMax Code/OpenCode-based harness.
+If the current `skills` CLI exposes a MiniMax-specific target, prefer that target.
 
-## Updating
+## Updating CLI-installed skills
 
 ```bash
 npx skills update
@@ -90,9 +127,9 @@ List installed skills:
 npx skills list
 ```
 
-## Use without installing
+OpenCode HTTP-catalog users do not need this update command for this repository; OpenCode uses the catalog versions to refresh cached remote skills.
 
-The open skills CLI can also resolve a skill temporarily:
+## Use without installing
 
 ```bash
 npx skills use jesusdavidweb/jedavid-ai-skills \
