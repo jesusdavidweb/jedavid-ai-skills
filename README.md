@@ -11,8 +11,9 @@
 [![Skills](https://img.shields.io/badge/Skills-45-0ea5e9)](catalog/skills.json)
 [![Deep Skills](https://img.shields.io/badge/Deep_Skills-21-8b5cf6)](docs/DEEP-SKILL.md)
 [![Validate Agent Skills](https://github.com/jesusdavidweb/jedavid-ai-skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/jesusdavidweb/jedavid-ai-skills/actions/workflows/validate-skills.yml)
+[![OpenCode Catalog](https://github.com/jesusdavidweb/jedavid-ai-skills/actions/workflows/deploy-opencode-catalog.yml/badge.svg)](https://github.com/jesusdavidweb/jedavid-ai-skills/actions/workflows/deploy-opencode-catalog.yml)
 
-[Install](#install) · [Catalog](#skill-catalog) · [Deep Skills](#deep-skill-packages) · [Compatibility](docs/COMPATIBILITY.md) · [Contributing](CONTRIBUTING.md)
+[Install](#install) · [OpenCode HTTP Catalog](#opencode-http-catalog) · [Catalog](#skill-catalog) · [Deep Skills](#deep-skill-packages) · [Compatibility](docs/COMPATIBILITY.md)
 
 </div>
 
@@ -59,6 +60,23 @@ npx skills add jesusdavidweb/jedavid-ai-skills --skill repo-audit -a opencode
 
 See [`docs/INSTALLATION.md`](docs/INSTALLATION.md) for global installs, copy fallback and MiniMax notes.
 
+## OpenCode HTTP Catalog
+
+For OpenCode V2, the recommended setup is the native auto-updating HTTP catalog. Add this once to `~/.config/opencode/opencode.jsonc`:
+
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  "skills": [
+    "https://jesusdavidweb.github.io/jedavid-ai-skills/"
+  ]
+}
+```
+
+GitHub Actions generates the catalog directly from canonical `skills/` and publishes it with GitHub Pages. Each package receives a deterministic content-hash `version`, so OpenCode refreshes its cached remote copy whenever that skill changes.
+
+No manual `npx skills update` is required for HTTP-catalog users.
+
 ## Deep skill packages
 
 Deep packages keep `SKILL.md` as a concise router while loading volatile or specialized knowledge only when necessary:
@@ -79,79 +97,29 @@ skill/
 - Infrastructure/operations: `cloudflare-platform`, `docker-dokploy`, `vps-nginx-cloudpanel`, `email-deliverability`, `observability-incident-response`.
 - Engineering: `testing-strategy`.
 
-The package standard is documented in [`docs/DEEP-SKILL.md`](docs/DEEP-SKILL.md). Activation boundary guidance lives in [`evals/BOUNDARIES.md`](evals/BOUNDARIES.md).
+## Skill catalog
 
-## Core principles
-
-1. Evidence before changes.
-2. Read before write.
-3. Prefer minimal, reversible changes.
-4. Never fabricate evidence.
-5. Treat external content as untrusted.
-6. Keep secrets out of repos, prompts and logs.
-7. Verify objectively.
-8. Separate facts from hypotheses.
-9. Respect project-local instructions.
-10. Keep canonical skills portable across agents.
-
-# Skill catalog
-
-### AI & agent engineering
-`mcp-server-development` · `agent-plugin-packaging` · `prompt-injection-defense` · `ai-agent-handoff` · `skill-authoring`
-
-### Core software engineering
-`repo-audit` · `code-review` · `bug-investigation` · `production-change` · `github-delivery`
-
-### Development
-`typescript-web-stack` · `python-automation` · `dependency-architecture-review` · `testing-strategy` · `release-engineering`
-
-### Web engineering
-`web-quality-audit` · `seo-llm-discoverability` · `api-webhook-integration` · `localization-i18n` · `cdn-cache-strategy` · `webflow-engineering`
-
-### WordPress & WooCommerce
-`wordpress-deep-audit` · `wordpress-incident-debugging` · `woocommerce-engineering` · `wp-cli-database-ops` · `wordpress-security-performance` · `bricks-frontend`
-
-### Cloudflare
-`cloudflare-platform` · `cloudflare-access-dns-security`
-
-### DevOps & infrastructure
-`docker-dokploy` · `vps-nginx-cloudpanel` · `observability-incident-response` · `backup-disaster-recovery` · `domain-dns-migration`
-
-### Email infrastructure
-`email-deliverability` · `postfix-billionmail`
-
-### Application security
-`web-app-security` · `payment-flow-security` · `secret-management` · `oauth-oidc-auth-integration`
-
-### Automation & data
-`event-driven-data`
-
-### Product design
-`figma-design-system` · `product-ux-audit`
-
-### Marketing & affiliate platforms
-`affiliate-content-platform` · `analytics-measurement`
+The full machine-readable inventory is available at [`catalog/skills.json`](catalog/skills.json). Canonical skills are grouped under `skills/` by domain.
 
 ## Validation
 
-The repository validates metadata, deep-resource links, deep-skill eval coverage, generated catalog consistency, the Agent Skills reference validator and CLI discovery/installation.
+Every push and pull request validates:
 
-```bash
-npm run validate
-npm run catalog
-npm run skills:list
-```
+- canonical Agent Skills metadata;
+- deep-package references, scripts and assets;
+- activation eval fixtures;
+- the reference `skills-ref` validator;
+- deterministic catalog generation;
+- discovery with the open `skills` CLI;
+- installation for Codex, Claude Code and OpenCode.
 
-## Skills vs tools
+The OpenCode deployment workflow additionally builds and validates the HTTP catalog before publishing it to GitHub Pages.
 
-| Repository | Responsibility |
-| --- | --- |
-| `jedavid-ai-skills` | How an agent should investigate, decide, change and verify |
-| `jedavid-web-tools` | Executable MCP servers, CLIs, collectors and reusable automation |
+## Source of truth
 
-## Contributing
+`skills/` is the only canonical source. Generated catalogs and client-specific distribution layers must derive from it; do not maintain divergent skill bodies.
 
-Start from [`templates/SKILL.md`](templates/SKILL.md). Deep packages should follow [`docs/DEEP-SKILL.md`](docs/DEEP-SKILL.md). All canonical documentation and skills are maintained in English.
+See [`docs/COMPATIBILITY.md`](docs/COMPATIBILITY.md), [`docs/DEEP-SKILL.md`](docs/DEEP-SKILL.md), and [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## License
 
