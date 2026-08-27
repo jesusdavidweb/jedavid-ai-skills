@@ -4,16 +4,16 @@
 
 ### Production-ready Agent Skills for modern engineering
 
-**An open-source library of 45 reusable skills for Codex, Claude Code, OpenCode, MiniMax, Cursor and other Agent Skills-compatible coding agents.**
+**An open-source library of 48 reusable skills for Codex, Claude Code, OpenCode, MiniMax, Cursor and other Agent Skills-compatible coding agents.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Agent Skills](https://img.shields.io/badge/Agent_Skills-compatible-7c3aed)](docs/COMPATIBILITY.md)
-[![Skills](https://img.shields.io/badge/Skills-45-0ea5e9)](catalog/skills.json)
+[![Skills](https://img.shields.io/badge/Skills-48-0ea5e9)](catalog/skills.json)
 [![Deep Skills](https://img.shields.io/badge/Deep_Skills-21-8b5cf6)](docs/DEEP-SKILL.md)
 [![Validate Agent Skills](https://github.com/jesusdavidweb/skills/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/jesusdavidweb/skills/actions/workflows/validate-skills.yml)
 [![OpenCode Catalog](https://github.com/jesusdavidweb/skills/actions/workflows/deploy-opencode-catalog.yml/badge.svg)](https://github.com/jesusdavidweb/skills/actions/workflows/deploy-opencode-catalog.yml)
 
-[Quick start](#quick-start) · [OpenCode](#opencode-auto-updating-catalog) · [What is included?](#what-is-included) · [Contributing](CONTRIBUTING.md) · [Compatibility](docs/COMPATIBILITY.md)
+[Quick start](#quick-start) · [Updating](#updating) · [OpenCode](#opencode-auto-updating-catalog) · [What is included?](#what-is-included) · [Contributing](CONTRIBUTING.md) · [Compatibility](docs/COMPATIBILITY.md)
 
 </div>
 
@@ -71,6 +71,32 @@ npx skills add jesusdavidweb/skills --skill repo-audit -a opencode
 ```
 
 The open `skills` CLI supports the shared Agent Skills ecosystem and many coding agents. See [`docs/INSTALLATION.md`](docs/INSTALLATION.md) for npm, pnpm, Bun and Yarn commands, global installation, updates, copy fallback, and client-specific notes.
+
+## Updating
+
+CLI-installed skills are **not automatically synchronized with GitHub**. Run the update command when you want to pull newer versions of installed skills:
+
+```bash
+# npm
+npx skills update
+
+# pnpm
+pnpm dlx skills update
+
+# Bun
+bunx skills update
+
+# Yarn
+yarn dlx skills update
+```
+
+For globally installed skills, use the global flag where supported by your installed `skills` CLI version:
+
+```bash
+npx skills update -g
+```
+
+OpenCode V2 users subscribed to the HTTP catalog are different: compatible versions use the catalog's deterministic skill versions to refresh changed remote skills without requiring this manual CLI update.
 
 ## OpenCode: auto-updating catalog
 
