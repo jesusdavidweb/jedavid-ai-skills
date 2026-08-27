@@ -37,7 +37,7 @@ for (const file of files) {
 
 const catalog = {
   schemaVersion: 1,
-  repository: 'jesusdavidweb/jedavid-ai-skills',
+  repository: 'jesusdavidweb/skills',
   license: 'MIT',
   skillCount: skills.length,
   skills,

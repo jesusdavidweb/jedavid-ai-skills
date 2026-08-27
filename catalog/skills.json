@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "repository": "jesusdavidweb/jedavid-ai-skills",
+  "repository": "jesusdavidweb/skills",
   "license": "MIT",
-  "skillCount": 45,
+  "skillCount": 48,
   "skills": [
     {
       "name": "agent-plugin-packaging",
@@ -115,9 +115,24 @@
       "path": "skills/email/email-deliverability/SKILL.md"
     },
     {
+      "name": "mail-delivery-observability",
+      "category": "email",
+      "path": "skills/email/mail-delivery-observability/SKILL.md"
+    },
+    {
       "name": "postfix-billionmail",
       "category": "email",
       "path": "skills/email/postfix-billionmail/SKILL.md"
+    },
+    {
+      "name": "postfix-selective-relay",
+      "category": "email",
+      "path": "skills/email/postfix-selective-relay/SKILL.md"
+    },
+    {
+      "name": "smtp-production-debugging",
+      "category": "email",
+      "path": "skills/email/smtp-production-debugging/SKILL.md"
     },
     {
       "name": "affiliate-content-platform",

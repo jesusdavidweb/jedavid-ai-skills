@@ -37,6 +37,12 @@ Changing the outbound transport changes delivery infrastructure. Re-check:
 - envelope/header domain behavior;
 - TLS and authenticated submission requirements.
 
+## Conditional references
+- Destination transport-map design and persistence → `references/transport-maps.md`.
+
+## Available scripts
+- `scripts/validate-transport-map.sh` — read-only map inspection and optional `postmap -q` lookup.
+
 ## Guardrails
 - Back up persistent Postfix configuration before edits.
 - Never globally set a relayhost when the requirement is selective routing unless the user explicitly chooses that architecture.

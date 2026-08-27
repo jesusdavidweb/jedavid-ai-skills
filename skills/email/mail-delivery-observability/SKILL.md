@@ -47,6 +47,12 @@ Avoid alerts based only on:
 - one transient MX/IP failure when alternate MX delivery succeeds;
 - a single SMTP rejection without considering response semantics.
 
+## Conditional references
+- Message-level metrics, dimensions and alert semantics → `references/metrics.md`.
+
+## Asset
+Use `assets/monitoring-dashboard.md` as a privacy-safe dashboard/report baseline.
+
 ## Privacy
 Operational telemetry should normally retain queue ID, timestamp, outcome, MX/provider, response class and latency/age. Hash or redact recipient addresses where exact addresses are not required. Do not store message bodies, credentials or private customer incident transcripts in dashboards or reusable fixtures.
 

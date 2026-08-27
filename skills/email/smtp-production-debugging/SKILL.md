@@ -38,6 +38,16 @@ Report at minimum:
 
 Never use `grep timeout | wc -l` or equivalent raw-line counts as the delivery-failure KPI.
 
+## Conditional references
+- Diagnostic layer separation and evidence discipline → `references/diagnostic-layers.md`.
+
+## Available scripts
+- `scripts/analyze-postfix-log.py` — read-only aggregate Postfix outcome/retry summary without recipient addresses.
+- `scripts/smtp-connectivity-check.sh` — read-only MX resolution and TCP/25 connectivity probe.
+
+## Asset
+Use `assets/smtp-incident-report.md` for privacy-safe incident findings and escalation notes.
+
 ## Guardrails
 - Start read-only. Queue flush, requeue, deletion, transport changes and service restarts require explicit justification.
 - Never expose recipient addresses, message bodies, SMTP credentials, API keys or customer-identifying data in reports or repository artifacts.
